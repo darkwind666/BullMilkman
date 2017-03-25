@@ -4,51 +4,47 @@ using UnityEngine;
 
 public class BubblePanel : MonoBehaviour {
 	public int score;
-	public GameObject[] prefab = new GameObject[1];
-	public List<GameObject>[] bubbles = new List<GameObject>[1];
+	public GameObject prefab;
+	//public List<GameObject>[] cats = new List<GameObject>[1];
 	public float speed = 40f;
-	public GameObject Cat;
+	public Transform bull;
+
+	int respawnIntervalTime = 100;
+	int respawnIndex;
+
+	//public GameObject Cat;
 
 
 	void Start (){
-		//	score = 0;
-		bubbles[0] = new List<GameObject>();
-		score = 0;
+		respawnIndex = 0;
+
 	}
 
 	void Update (){
 		int sw = Screen.width;
 		int sh = Screen.height;
-		int count = bubbles [0].Count;
-		List<GameObject> bub = bubbles [0];
-		bool nadAdd = false;
-		if (count > 0) {
-			for (int i = 0; i < count; i++) {
-				switch (Random.Range (0, 1)) {
-				case 0:
-					bub [i].transform.Translate (Vector2.right * Time.deltaTime * -speed);
-					break;
-				case 1:
-					bub [i].transform.Translate (Vector2.left * Time.deltaTime * speed);
-					break;
-				//case 2:
-				//	bub [i].transform.Translate (Vector2.left * Time.deltaTime * speed);
-				}
-			}
-		} else
-			nadAdd = true;
-		if(nadAdd){ 
-			//float between = Random.Range (10, 30);
-			//Vector3 pos = new Vector3 (sw + Random.Range(0, 50), sh/2+Random.Range(-30,30), 0);
-			//pos.y += Random.Range (20, 50) / 2;
-			//GameObject bub = Instantiate<GameObject> (prefab);
-			//bub.transform.position = Camera.main.ScreenToWorldPoint(pos)+Vector3.forward/*1f*Cat.position.z*//*Vector3.right*/;
-			/*bub = GameObject.AddComponent (bubbles)*/;
+		float between = Random.Range (1, 5);
+		Vector3 pos = Camera.main.ViewportToWorldPoint(new Vector3 (0 + Random.Range(-7, 7), 0+Random.Range(-7,7), bull.position.z));
+		pos.y += between / 2;
+
+		respawnIndex++;
+
+		if (respawnIndex >= respawnIntervalTime) {
+			respawnIndex = 0;
+			GameObject prefabCat = Instantiate (prefab, pos, transform.rotation);
+			cats cat = prefabCat.GetComponent<cats> ();
+			cat.SetBull (bull.gameObject);
+			prefabCat.transform.parent = this.transform;
 		}
+
+			//GameObject prefab = Instantiate<GameObject> (catty[0]);
+			//prefab.transform.position = Camera.main.ScreenToWorldPoint(pos)/*+Vector3.forward* cat.position.z/*1f*Cat.position.z*//*Vector3.right*/;
+			//cats[0].Add(prefab);
+		//}
 	}
 
 	public void OnClick(){
-		score++;
+		//score++;
 		//if (GameObject.name == "stone") {
 		
 		//}

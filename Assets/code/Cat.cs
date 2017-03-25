@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Cat : MonoBehaviour {
+
 	public Rigidbody2D catBody;
-	public float speed = 20f;
+	public float speed = 40f;
 	//public int score;
 	//public float move;
 
@@ -20,11 +21,7 @@ public class Cat : MonoBehaviour {
 		//catBody.AddForce(new Vector2 (1*Time.deltaTime, 0));
 		catBody.velocity = new Vector2 (speed * Time.deltaTime, catBody.velocity.y);
 	}
-	void OnTriggerEnter2D (Collider2D col){
-		if (col.gameObject.name == "podushka") {
-			
-		}
-	}
+
 	//void OnGUI(){
 	//	GUI.Box (new Rect(0, 0, 70, 20), "Score: " + score);
 	//}

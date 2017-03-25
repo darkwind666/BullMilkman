@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class cam : MonoBehaviour {
 	public float dampTime = 0.15f;
 	private Vector3 velocity = Vector3.zero;
 	public Transform target;
 	Camera camer;
+	public Image progress;
 
 	void Start() {
 		camer = GetComponent<Camera> ();
@@ -23,6 +26,7 @@ public class cam : MonoBehaviour {
 
 
 			transform.position = Vector3.SmoothDamp(transform.position, destination, ref velocity, dampTime);
+			progress.fillAmount -=  Time.deltaTime;
 		}
 
 	}
